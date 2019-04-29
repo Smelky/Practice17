@@ -1,17 +1,23 @@
-import beans.PersonEntity;
-import prototype.MessageRunnerForPrototype;
-import singleton.MessageRunnerForSingleton;
+import model.Message;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
+@SpringBootApplication
+@Configuration
+@ComponentScan(basePackages = {"model", "beans"})
 public class Application {
+
     public static void main(String[] args) {
-        MessageRunnerForSingleton.messageRun();
-        MessageRunnerForPrototype.messageRun();
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("com.mateacademy.springintro");
 
-        PersonEntity personEntity = new PersonEntity();
-        personEntity.postProcessAfterInitialization(personEntity, "person");
-        personEntity.postProcessBeforeInitialization(personEntity, "person1");
+        Message message = context.getBean("prototype", Message.class);
+        Message MessagePrototype = context.getBean("prototype", Message.class);
 
-        personEntity.init();
-        personEntity.preDestroy();
+        Message singleton = context.getBean("singleton", Message.class);
+        Message other = context.getBean("singleton", Message.class);
+
+        Runtime.getRuntime().addShutdownHook(new Thread(context::close));
     }
 }

@@ -9,13 +9,13 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Component
-public class PersonEntity implements BeanPostProcessor {
+public class CustomBeanPostProcessor implements BeanPostProcessor {
 
-    private static Logger LOGGER = Logger.getLogger(PersonEntity.class);
+    private static Logger LOGGER = Logger.getLogger(CustomBeanPostProcessor.class);
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        if (bean instanceof PersonEntity) {
+        if (bean instanceof CustomBeanPostProcessor) {
             LOGGER.info("In postProcessAfterInitialization " + bean);
         }
         return bean;
@@ -23,19 +23,9 @@ public class PersonEntity implements BeanPostProcessor {
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        if (bean instanceof PersonEntity) {
+        if (bean instanceof CustomBeanPostProcessor) {
             LOGGER.info("In postProcessBeforeInitialization " + bean);
         }
         return bean;
-    }
-
-    @PostConstruct
-    public void init() {
-        LOGGER.info("Person is init!");
-    }
-
-    @PreDestroy
-    public void preDestroy() {
-        LOGGER.info("Person is destroy!");
     }
 }
