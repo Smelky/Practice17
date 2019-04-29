@@ -13,7 +13,6 @@ public class MessageForSingleton {
     private static Logger LOGGER = Logger.getLogger(CustomBeanPostProcessor.class);
 
     @Bean(name = "singleton")
-    @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
     public Message getPrototypeUser() {
         LOGGER.info("Singleton bean has been created");
         return new Message();

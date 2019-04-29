@@ -13,7 +13,7 @@ public class Application {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("com.mateacademy.springintro");
 
         Message message = context.getBean("prototype", Message.class);
-        Message MessagePrototype = context.getBean("prototype", Message.class);
+        Message messagePrototype = context.getBean("prototype", Message.class);
 
         Message singleton = context.getBean("singleton", Message.class);
         Message other = context.getBean("singleton", Message.class);
